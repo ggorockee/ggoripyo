@@ -10,9 +10,12 @@
       <div class="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
         <form class="space-y-6" @submit.prevent="handleLogin">
           <div>
-            <label for="email" class="block text-sm font-medium text-gray-700">이메일 주소</label>
+            <label for="email" class="block text-sm font-medium text-gray-700"
+              >가입하셨던 이메일 주소</label
+            >
             <div class="mt-1">
               <input
+                v-model="email"
                 id="email"
                 name="email"
                 type="email"
@@ -24,9 +27,12 @@
           </div>
 
           <div>
-            <label for="password" class="block text-sm font-medium text-gray-700">비밀번호</label>
+            <label for="password" class="block text-sm font-medium text-gray-700"
+              >비밀번호도 잊지 않으셨죠?</label
+            >
             <div class="mt-1">
               <input
+                v-model="password"
                 id="password"
                 name="password"
                 type="password"
@@ -40,7 +46,12 @@
           <div>
             <button
               type="submit"
-              class="flex w-full justify-center rounded-md border border-transparent bg-blue-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+              :class="[
+                'flex w-full justify-center rounded-md border border-transparent py-2 px-4 text-sm font-medium text-white shadow-sm transition-colors',
+                isFormReady
+                  ? 'bg-blue-600 hover:bg-blue-700 focus:ring-blue-500'
+                  : 'bg-blue-300 cursor-not-allowed',
+              ]"
             >
               로그인
             </button>
@@ -71,14 +82,32 @@
 </template>
 
 <script setup lang="ts">
+import { ref, computed } from 'vue'
 import { useRouter } from 'vue-router'
+import { useToast } from 'vue-toastification'
 
-// 실제 앱에서는 로그인 성공/실패 로직이 필요합니다.
-// 여기서는 로그인 버튼을 누르면 홈으로 이동하는 시뮬레이션만 합니다.
 const router = useRouter()
+const toast = useToast()
+
+// --- [추가] 폼 상태 관리를 위한 ref ---
+const email = ref('')
+const password = ref('')
+
+// --- [추가] 폼이 준비되었는지 확인하는 computed 속성 ---
+const isFormReady = computed(() => {
+  return email.value && password.value
+})
+
 const handleLogin = () => {
+  // --- [추가] 폼 제출 전 유효성 검사 ---
+  if (!isFormReady.value) {
+    toast.error('이메일과 비밀번호를 모두 입력해주세요!')
+    return
+  }
+
   // TODO: 실제 로그인 로직 구현
-  alert('로그인 성공! (시뮬레이션)')
+  // [수정] alert 대신 success 토스트 사용
+  toast.success('다시 오신 것을 환영해요! 🙌')
   router.push('/')
 }
 </script>

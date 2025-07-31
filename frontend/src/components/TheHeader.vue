@@ -2,26 +2,12 @@
   <header class="bg-white/80 backdrop-blur-sm shadow-sm sticky top-0 z-10">
     <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex items-center justify-between h-16">
-        <div class="flex items-center">
-          <svg
-            class="w-8 h-8 text-blue-600"
-            fill="none"
-            stroke-width="1.5"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              d="M9.568 3H5.25A2.25 2.25 0 003 5.25v4.318c0 .597.237 1.17.659 1.591l9.581 9.581c.699.699 1.78.872 2.607.33a18.095 18.095 0 005.223-5.223c.542-.827.369-1.908-.33-2.607L11.16 3.66A2.25 2.25 0 009.568 3z"
-            ></path>
-            <path stroke-linecap="round" stroke-linejoin="round" d="M6 6h.008v.008H6V6z"></path>
-          </svg>
+        <router-link to="/" class="flex items-center">
+          <img src="/favicon/web-app-manifest-192x192.png" alt="꼬리표 로고" class="w-12 h-12" />
           <h1 class="text-xl sm:text-2xl font-bold text-slate-800 ml-2 whitespace-nowrap">
             꼬리표
           </h1>
-        </div>
+        </router-link>
 
         <div v-if="isLoggedIn" class="flex items-center gap-x-4">
           <div class="relative w-40 sm:w-full sm:max-w-xs">
